@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requiem [RQE] - Star Citizen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --void: #000;
+            --blood: #8B0000;
+            --ash: #D3D3D3;
+            --shadow: rgba(139, 0, 0, 0.3);
+            --echo: #1A1A1A;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Crimson Text', serif;
+            background: var(--void);
+            color: var(--ash);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,7)), url('https://i.postimg.cc/5NQ8t1Z7/e36806d5-c3c5-4c72-8881-87698126362b.jpg') center/cover no-repeat fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 0%, rgba(139,0,0,0.1) 50%, transparent 100%);
+            animation: pulse 4s infinite;
+        }
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(4rem, 10vw, 8rem);
+            color: #FFF;
+            letter-spacing: 0.2em;
+            text-shadow: 0 0 30px var(--shadow);
+            z-index: 2;
+            animation: fadeInUp 2.5s ease-out;
+            margin-bottom: 1rem;
+        }
+        .sid {
+            font-size: 1.5rem;
+            color: var(--blood);
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            z-index: 2;
+            animation: fadeInUp 3s ease-out;
+        }
+        .motto {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-top: 1rem;
+            z-index: 2;
+            animation: fadeInUp 3.5s ease-out;
+        }
+        nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        nav a {
+            color: var(--ash);
+            text-decoration: none;
+            padding: 10px 20px;
+            font-family: 'Cinzel', serif;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: var(--blood);
+        }
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--blood);
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: 0.1em;
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 2px;
+            background: var(--blood);
+            margin: 1rem auto;
+            opacity: 0.7;
+        }
+        .manifesto {
+            background: var(--echo);
+            padding: 40px;
+            border-left: 4px solid var(--blood);
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.9;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            text-align: left;
+        }
+        .leaders {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .leader-card {
+            background: var(--echo);
+            padding: 2rem;
+            border: 1px solid var(--shadow);
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .leader-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow);
+        }
+        .leader-title {
+            font-family: 'Cinzel', serif;
+            color: var(--blood);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .ranks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .rank {
+            background: var(--echo);
+            padding: 1.5rem;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+        .rank.ascendant {
+            border-color: var(--blood);
+        }
+        .rank-title {
+            font-family: 'Cinzel', serif;
+            color: var(--blood);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .join {
+            text-align: center;
+            background: linear-gradient(135deg, var(--echo), var(--void));
+            border: 2px solid var(--blood);
+            padding: 3rem;
+            border-radius: 12px;
+            max-width: 600px;
+            margin: 3rem auto;
+        }
+        .join-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        .rsi-link, .discord-link {
+            display: inline-block;
+            padding: 1rem 2rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        .rsi-link {
+            background: var(--blood);
+            color: var(--ash);
+        }
+        .rsi-link:hover {
+            background: #A52A2A;
+        }
+        .discord-link {
+            background: #5865F2;
+            color: white;
+        }
+        .discord-link:hover {
+            background: #4752C4;
+        }
+        footer {
+            background: var(--void);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--shadow);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        @media (max-width: 768px) {
+            nav { top: 10px; right: 10px; }
+            .leaders, .ranks { grid-template-columns: 1fr; }
+            .join-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#manifesto"><i class="fas fa-scroll"></i> Manifesto</a>
+        <a href="#trinity"><i class="fas fa-users"></i> The Trinity</a>
+        <a href="#ranks"><i class="fas fa-crown"></i> Ranks</a>
+        <a href="#join"><i class="fas fa-skull-crossbones"></i> Join</a>
+    </nav>
+
+    <header>
+        <h1>Requiem</h1>
+        <div class="sid">[RQE]</div>
+        <p class="motto">Die tested. Rise as legion.</p>
+    </header>
+
+    <section id="manifesto">
+        <h2>The Forge of Eternity</h2>
+        <div class="manifesto">
+            A failed Pyro raid. Prototype FCS fused three dying pilots into one mind. Death is no longer the end — it is the forge. We sell the tech as FCS. We live the faith as Requiem. Ritual trials, perfect sync, zero fear. Die in the circle. Rise as legion. Mors Ultima Probatio. This is Requiem.
+        </div>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto; opacity: 0.9;">Memento Mori – Death is not feared. It is embraced, sequenced, and transcended.</p>
+    </section>
+
+    <section id="trinity" style="background: var(--echo);">
+        <h2>The Trinity</h2>
+        <div class="leaders">
+            <div class="leader-card">
+                <div class="leader-title">Bowers</div>
+                <p><strong>Death Architect</strong><br>Sequences the ordeals.</p>
+            </div>
+            <div class="leader-card">
+                <div class="leader-title">Kooj</div>
+                <p><strong>High Prophet of the Echo</strong><br>Preaches the fusion.</p>
+            </div>
+            <div class="leader-card">
+                <div class="leader-title">Battlebuddy</div>
+                <p><strong>Keeper of the Gates</strong><br>Guards the circle.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="ranks">
+        <h2>Ranks of Ascension</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; opacity: 0.9;">Earned through witnessed echo deaths. Full members complete one death-trial every 30 days.</p>
+        <div class="ranks">
+            <div class="rank">
+                <div class="rank-title">Initiate</div>
+                <p>Step into the circle.</p>
+            </div>
+            <div class="rank">
+                <div class="rank-title">Tempered</div>
+                <p>Proven in trial.</p>
+            </div>
+            <div class="rank">
+                <div class="rank-title">Echo-Bound</div>
+                <p>Linked in sync.</p>
+            </div>
+            <div class="rank ascendant">
+                <div class="rank-title">Ascendant</div>
+                <p>50+ deaths. Legion eternal.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="join" style="background: var(--echo);">
+        <h2>Enter the Circle</h2>
+        <div class="join">
+            <p>Requiem is <strong>Exclusive</strong>. Faith demands trial. Infiltration. Freelancing. Mercenary rites on the fringes.</p>
+            <p>Apply through the RSI org page. Step into the circle. Die tested.</p>
+            <div class="join-buttons">
+                <a href="https://robertsspaceindustries.com/orgs/RQE" target="_blank" class="rsi-link">
+                    <i class="fas fa-external-link-alt"></i> Join Requiem [RQE]
+                </a>
+                <a href="https://discord.gg/HsAndyZK" target="_blank" class="discord-link">
+                    <i class="fab fa-discord"></i> Discord Server
+                </a>
+            </div>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.8;">Archetype: Faith • Hardcore • Roleplay</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Requiem [RQE] • <a href="https://robertsspaceindustries.com/orgs/RQE" style="color: var(--blood);">RSI Org</a> • All echoes reserved.</p>
+    </footer>
+</body>
+</html>
